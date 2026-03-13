@@ -1,0 +1,285 @@
+---
+title: "Placenta Metabolomics — Step 0 (Preprocess) & Step 1 (Stats + Outliers)"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    number_sections: true
+params:
+  data_dir: "/Users/atharva/Downloads/Jessica/Raw data"          # change to your folder path when knitting locally
+  output_dir: "outputs"  # where CSVs and plots will be written
+  demo_file: "mata2022_caco_mar242022.xlsx"
+  placenta_file: "MetaPro_placenta_Jan2022.xlsx"
+  placenta_norm_sheet: "Normalized data"
+  placenta_info_sheet: "Sample Info"
+---
+
+```{r setup, message=FALSE, warning=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE, fig.width = 7, fig.height = 5)
+
+# Helper: install if missing
+pkg_needed <- c("readxl","dplyr","tidyr","ggplot2","psych","Hmisc","ggpubr")
+to_install <- setdiff(pkg_needed, rownames(installed.packages()))
+if (length(to_install) > 0) install.packages(to_install, quiet = TRUE)
+lapply(pkg_needed, require, character.only = TRUE)
+
+# Paths
+data_dir   <- params$data_dir
+output_dir <- params$output_dir
+if (!dir.exists(output_dir)) dir.create(output_dir, recursive = TRUE)
+
+demo_path     <- file.path(data_dir, params$demo_file)
+placenta_path <- file.path(data_dir, params$placenta_file)
+
+norm_sheet <- params$placenta_norm_sheet
+info_sheet <- params$placenta_info_sheet
+```
+
+# 0. Load raw data
+
+```{r load-data}
+# Demographics
+data.demo <- readxl::read_excel(demo_path)
+
+# Placenta metabolite matrix + sample info
+data.placenta      <- readxl::read_excel(placenta_path, sheet = norm_sheet)
+data.placenta.info <- readxl::read_excel(placenta_path, sheet = info_sheet)
+
+# Preview
+list(
+  demo_cols = colnames(data.demo)[1:12],
+  placenta_cols = colnames(data.placenta)[1:12],
+  info_cols = colnames(data.placenta.info)
+)
+```
+
+## 0.1 Keep IDs present in demo (all subjects)
+
+```{r filter-keep}
+keep_ids <- data.demo %>%
+  dplyr::select(matchid, IDCode)
+
+nrow(keep_ids)
+head(keep_ids)
+```
+
+## 0.2 Harmonize sample ID -> IDCode (renaming columns)
+
+```{r rename-idcode}
+# Per provided script: placenta IDCode comes from Tube Label substring(2, nchar)
+data.placenta.info <- data.placenta.info %>%
+  dplyr::mutate(
+    IDCode = substr(`Tube Label`, 2, nchar(`Tube Label`))
+  ) %>%
+  dplyr::select(`SAMPLE ID`, IDCode)
+
+# Rename measurement columns (start at column 12 per original)
+placenta_fixed <- data.placenta
+if (ncol(placenta_fixed) >= 12) {
+  meas_cols <- colnames(placenta_fixed)[12:ncol(placenta_fixed)]
+  map <- setNames(data.placenta.info$IDCode, data.placenta.info$`SAMPLE ID`)
+  new_names <- ifelse(meas_cols %in% names(map), map[meas_cols], meas_cols)
+  colnames(placenta_fixed)[12:ncol(placenta_fixed)] <- new_names
+}
+
+# Subset to metadata + kept IDs
+meta_cols <- c("COMPOUND Name","SUPER META PATHWAY","SUB META PATHWAY","HMDB ID")
+present_ids <- intersect(keep_ids$IDCode, colnames(placenta_fixed))
+data.placenta.new <- as.data.frame(placenta_fixed[, c(meta_cols, present_ids), drop = FALSE])
+
+dim(data.placenta.new)
+head(colnames(data.placenta.new))
+```
+
+# 1. Build analysis matrices (subjects as rows)
+
+```{r build-mats}
+compound.meta_placenta   <- data.placenta.new[, 1:4, drop = FALSE]
+compound.names_placenta  <- make.unique(data.placenta.new$`COMPOUND Name`)
+data.mat_placenta        <- data.placenta.new[, -(1:4), drop = FALSE]
+rownames(data.mat_placenta) <- compound.names_placenta
+
+data.trans_placenta <- as.data.frame(t(data.mat_placenta), stringsAsFactors = FALSE)
+data.trans_placenta$SubjectID <- rownames(data.trans_placenta)
+data.trans_placenta <- data.trans_placenta[, c("SubjectID", setdiff(names(data.trans_placenta), "SubjectID"))]
+
+write.csv(data.trans_placenta, file.path(output_dir, "placenta_transposed.csv"), row.names = FALSE)
+```
+
+# 2. Missingness overview
+
+```{r missingness}
+to_num <- function(v) {
+  v <- as.numeric(as.character(v))
+  v[!is.finite(v)] <- NA_real_
+  v
+}
+
+miss_per_met <- sapply(data.trans_placenta[,-1], function(x) mean(is.na(to_num(x))) * 100)
+miss_per_sub <- apply(data.trans_placenta[,-1], 1, function(x) mean(is.na(to_num(x))) * 100)
+
+miss_df <- data.frame(
+  Feature = names(miss_per_met),
+  PctMissing = as.numeric(miss_per_met),
+  row.names = NULL,
+  check.names = FALSE
+) %>% dplyr::arrange(dplyr::desc(PctMissing))
+
+head(miss_df, 10)
+
+write.csv(miss_df, file.path(output_dir, "placenta_missingness_by_metabolite.csv"), row.names = FALSE)
+write.csv(
+  data.frame(SubjectID = data.trans_placenta$SubjectID, PctMissing = as.numeric(miss_per_sub)),
+  file.path(output_dir, "placenta_missingness_by_subject.csv"),
+  row.names = FALSE
+)
+
+topN <- 30
+top_missing <- miss_df %>% head(topN)
+
+ggplot(top_missing, aes(x = reorder(Feature, PctMissing), y = PctMissing)) +
+  geom_col() +
+  coord_flip() +
+  labs(title = "Top Missing Metabolites (Placenta)", x = NULL, y = "% Missing")
+```
+
+# 3. Normality (Shapiro–Wilk) per metabolite
+
+```{r shapiro}
+compound_placenta.data <- data.trans_placenta[, -1, drop = FALSE]
+
+shapiro.pvals_pl <- sapply(compound_placenta.data, function(x) {
+  x <- to_num(x)
+  if (length(unique(na.omit(x))) >= 3) {
+    as.numeric(tryCatch(shapiro.test(x)$p.value, error = function(e) NA_real_))
+  } else NA_real_
+})
+
+hist(shapiro.pvals_pl, breaks = 20, main = "Shapiro–Wilk p-values (Placenta)", xlab = "p-value")
+
+shapiro.results_pl <- data.frame(
+  Compound = names(shapiro.pvals_pl),
+  P_value  = as.numeric(shapiro.pvals_pl),
+  Normal   = ifelse(!is.na(shapiro.pvals_pl) & shapiro.pvals_pl >= 0.05, "Yes", "No"),
+  stringsAsFactors = FALSE
+)
+
+compound.annotation <- compound.meta_placenta
+compound.annotation$Compound_Name <- compound.names_placenta
+shapiro.results_pl <- merge(shapiro.results_pl, compound.annotation, by.x = "Compound", by.y = "Compound_Name", all.x = TRUE)
+
+head(shapiro.results_pl)
+
+write.csv(shapiro.results_pl, file.path(output_dir, "placenta_shapiro_results.csv"), row.names = FALSE)
+```
+
+# 4. Descriptive statistics (per metabolite)
+
+```{r univariate}
+mat <- data.trans_placenta[, -1, drop = FALSE]
+mat_num <- as.data.frame(lapply(mat, to_num), check.names = FALSE)
+
+keep_cols <- sapply(mat_num, function(v) length(unique(na.omit(v))) >= 3)
+mat_num <- mat_num[, keep_cols, drop = FALSE]
+
+placenta_desc <- psych::describe(mat_num)
+head(placenta_desc)
+write.csv(placenta_desc, file.path(output_dir, "placenta_metabolite_summary_psych.csv"))
+```
+
+# 5. Distributions — Histograms with density & normal curve
+
+```{r histograms}
+plot_metabolite_distributions <- function(data_trans, pdf_file,
+                                          drop_col = "SubjectID",
+                                          breaks = 20,
+                                          width = 8, height = 6) {
+  mat <- data_trans[, setdiff(names(data_trans), drop_col), drop = FALSE]
+  grDevices::pdf(pdf_file, width = width, height = height)
+  on.exit(grDevices::dev.off(), add = TRUE)
+
+  for (met in names(mat)) {
+    x <- as.numeric(as.character(mat[[met]]))
+    x[!is.finite(x)] <- NA_real_
+    x <- x[is.finite(x)]
+
+    pval <- if (length(unique(na.omit(x))) >= 3) {
+      as.numeric(tryCatch(shapiro.test(x)$p.value, error = function(e) NA_real_))
+    } else NA_real_
+
+    ptxt <- if (is.na(pval)) "NA (n < 3 unique)" else formatC(pval, format = "g", digits = 3)
+    main_title <- paste0("Histogram of ", met, "\nShapiro-Wilk p = ", ptxt)
+
+    hist(x, breaks = breaks, freq = FALSE,
+         main = main_title, xlab = "Value",
+         col = "lightgray", border = "white")
+
+    if (length(x) > 1 && stats::sd(x, na.rm = TRUE) > 0) {
+      lines(stats::density(x, na.rm = TRUE), lwd = 2)
+      xfit <- seq(min(x, na.rm = TRUE), max(x, na.rm = TRUE), length.out = 200)
+      yfit <- dnorm(xfit, mean = mean(x, na.rm = TRUE), sd = sd(x, na.rm = TRUE))
+      lines(xfit, yfit, lwd = 2)
+      legend("topright", legend = c("Empirical density","Normal (mu, sigma)"), lwd = 2, bty = "n")
+    } else {
+      legend("topright", legend = c("Insufficient variation"), bty = "n")
+    }
+  }
+}
+
+plot_metabolite_distributions(
+  data.trans_placenta,
+  file.path(output_dir, "placenta_histograms_with_normal_shapiro.pdf")
+)
+```
+
+# 6. Boxplots & Outliers (IQR rule)
+
+```{r boxplots-outliers}
+df_long <- data.trans_placenta %>%
+  tidyr::pivot_longer(-SubjectID, names_to = "Metabolite", values_to = "Value") %>%
+  dplyr::mutate(Value = as.numeric(as.character(Value))) %>%
+  dplyr::mutate(Value = ifelse(is.finite(Value), Value, NA_real_))
+
+pdf(file.path(output_dir, "Placenta_Boxplots_One_Per_Page.pdf"), width = 7, height = 5)
+unique_mets <- unique(df_long$Metabolite)
+for (met in unique_mets) {
+  p <- ggplot(dplyr::filter(df_long, Metabolite == met), aes(x = "", y = Value)) +
+    geom_boxplot(outlier.color = "red", fill = "lightgreen") +
+    labs(title = paste("Boxplot of", met), y = "Value", x = NULL) +
+    theme_bw() +
+    theme(axis.text.x = element_blank(), axis.ticks.x = element_blank())
+  print(p)
+}
+dev.off()
+
+iqr_outliers <- df_long %>%
+  dplyr::group_by(Metabolite) %>%
+  dplyr::summarise(
+    Q1 = quantile(Value, 0.25, na.rm = TRUE),
+    Q3 = quantile(Value, 0.75, na.rm = TRUE),
+    IQR = Q3 - Q1,
+    .groups = "drop"
+  ) %>%
+  dplyr::mutate(
+    Lower = Q1 - 1.5*IQR,
+    Upper = Q3 + 1.5*IQR
+  )
+
+outliers_long <- df_long %>%
+  dplyr::left_join(iqr_outliers, by = "Metabolite") %>%
+  dplyr::filter(is.finite(Value) & (Value < Lower | Value > Upper)) %>%
+  dplyr::select(SubjectID, Metabolite, Value, Lower, Upper, Q1, Q3, IQR)
+
+head(outliers_long)
+write.csv(outliers_long, file.path(output_dir, "placenta_outliers_iqr.csv"), row.names = FALSE)
+```
+
+# 7. Session info
+
+```{r session}
+sessionInfo()
+```
+
+**How to use:**  
+- In RStudio, open this file, set `params$data_dir` to your folder (e.g., `"~/Downloads/Jessica/Raw data"`), and click **Knit** to HTML.  
+- All CSVs and PDFs will be saved under `outputs/`.
