@@ -6,12 +6,26 @@ A step-by-step metabolomics analysis pipeline for placenta and cord blood sample
 
 ## Table of Contents
 
+- [Background](#background)
 - [Project Overview](#project-overview)
+- [Dataset Explanation: MetaPro_placenta_Jan2022](#dataset-explanation-metapro_placenta_jan2022)
 - [Repository Structure](#repository-structure)
 - [Pipeline Steps](#pipeline-steps)
 - [Outputs](#outputs)
 - [Requirements](#requirements)
 - [Getting Started](#getting-started)
+
+---
+
+## Background
+
+Air pollution remains a major global health issue and is associated with millions of deaths annually. Its burden is especially high in heavily polluted regions, including parts of China, where fine particulate matter such as PM2.5 has been linked to substantial mortality. Maternal exposure to pollutants including PM2.5, PM10, NO2, and NOx has also been associated with adverse pregnancy outcomes such as preterm birth, low birth weight, neurodevelopmental disorders, and gestational diabetes mellitus (GDM).
+
+GDM affects a substantial proportion of pregnancies worldwide and is associated with both short-term and long-term health risks for mothers and children. These include pregnancy complications, later risk of type 2 diabetes, cardiovascular disease, and broader impacts on maternal and child health.
+
+Prior studies examining the relationship between PM2.5 exposure and GDM have reported inconsistent findings. Studies conducted in China have generally shown stronger positive associations, while findings from the United States have been more mixed, suggesting possible differences across populations, environments, or study designs.
+
+Metabolomics offers a useful way to investigate the biological mechanisms that may link air pollution exposure with GDM. By analyzing metabolites and metabolic pathways, researchers can study molecular changes related to oxidative stress, inflammation, and other processes that may underlie disease risk. This project supports that goal by analyzing metabolomic differences in placental tissue and umbilical cord blood from 40 pregnant women in Beijing, comparing control and GDM pregnancies in the context of air pollution exposure.
 
 ---
 
@@ -23,6 +37,68 @@ This project analyzes untargeted metabolomics data from two biological matrices:
 - **Cord Blood** — `MetaPro_cord_blood_Jan2022.xlsx`
 
 Both datasets use normalized intensity values from the `Normalized data` sheet. The pipeline identifies metabolites unique to each tissue, runs dimensionality reduction via PCA, detects sample outliers, and determines which metabolites are the primary drivers of variation and outlier behavior.
+
+---
+
+## Dataset Explanation: MetaPro_placenta_Jan2022
+
+`MetaPro_placenta_Jan2022.xlsx` contains metabolomics measurements from human placenta samples. Metabolomics is the study of small molecules, called metabolites, that are produced or modified by biological processes. In this project, the dataset is used to understand the metabolic profile of placenta tissue and compare patterns across sample groups.
+
+### 1. What are metabolites?
+
+Metabolites are the individual chemical compounds detected in the placenta samples. These can include amino acids, lipids, sugars, and other small molecules. Each metabolite has a `COMPOUND Name` and is classified into:
+
+- **SUPER META PATHWAY**: a broad biological category such as Lipids or Amino Acids
+- **SUB META PATHWAY**: a more specific subgroup such as Sterols or Fatty Acids
+
+These metabolites act as chemical signatures that reflect the health, nutrition, and metabolic activity of the placenta at the time the sample was collected.
+
+### 2. What are the samples?
+
+The samples are individual placenta tissue specimens collected for the study.
+
+- Total samples: 40
+- Sample labels: `sample-1` through `sample-40`
+- Group A: 20 samples
+- Group B: 20 samples
+
+These groups are typically compared to determine whether certain metabolites are higher or lower in one group than the other.
+
+### 3. What do the rows and columns represent?
+
+#### Rows
+
+Each row represents one unique metabolite. For example, a row may correspond to a compound such as `gentisic acid-5-glucoside`, and the values across that row show the measured abundance of that metabolite in each sample.
+
+#### Columns
+
+The columns are divided into two main sections:
+
+- **Metadata columns**: the first 11 columns describe the metabolite itself
+- **Sample columns**: the remaining columns, such as `sample-1` through `sample-40`, contain the measured values for each individual sample
+
+Important metadata fields include:
+
+- `COMP ID`: internal compound identifier
+- `COMPOUND Name`: metabolite name
+- `HMDB ID`, `PUBCHEM ID`, `CAS ID`, `KEGG ID`, and related fields: identifiers that map the metabolite to public chemical databases
+
+### 4. Peak Area vs. Normalized Data
+
+The dataset includes two versions of the metabolite measurements:
+
+- **Peak Area data**: raw signal intensity values generated by the mass spectrometry platform
+- **Normalized data**: processed values that have been log-transformed and adjusted to reduce technical variation and improve comparability across samples
+
+The normalized data is the version typically used for downstream statistical analysis, PCA, and plotting in this repository.
+
+### 5. Summary of the file contents
+
+The Excel workbook includes multiple sheets that serve different purposes:
+
+- **Data Key & Explanation**: defines the meaning of the column headers
+- **Sample Info**: maps each sample to its study group, such as Group A or Group B
+- **Peak Area / Normalized Data**: main measurement tables used for preprocessing and analysis
 
 ---
 
