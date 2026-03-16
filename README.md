@@ -9,6 +9,8 @@ A step-by-step metabolomics analysis pipeline for placenta and cord blood sample
 - [Background](#background)
 - [Project Overview](#project-overview)
 - [Dataset Explanation: MetaPro_placenta_Jan2022](#dataset-explanation-metapro_placenta_jan2022)
+- [Dataset Explanation: MetaPro_cord_blood_Jan2022](#dataset-explanation-metapro_cord_blood_jan2022)
+- [Dataset Explanation: mata2022_caco_mar242022.xlsx](#dataset-explanation-mata2022_caco_mar242022xlsx)
 - [Repository Structure](#repository-structure)
 - [Pipeline Steps](#pipeline-steps)
 - [Outputs](#outputs)
@@ -99,6 +101,109 @@ The Excel workbook includes multiple sheets that serve different purposes:
 - **Data Key & Explanation**: defines the meaning of the column headers
 - **Sample Info**: maps each sample to its study group, such as Group A or Group B
 - **Peak Area / Normalized Data**: main measurement tables used for preprocessing and analysis
+
+---
+
+## Dataset Explanation: MetaPro_cord_blood_Jan2022
+
+`MetaPro_cord_blood_Jan2022.xlsx` contains metabolomics measurements from human umbilical cord blood. Cord blood reflects the metabolic state of the baby at the time of birth and provides a snapshot of nutrients, waste products, and other small molecules associated with maternal-fetal exchange.
+
+### 1. What is the context?
+
+This is a metabolomics dataset of human cord blood. It helps characterize the biochemical state of the newborn at delivery and can be compared with placenta metabolomics to understand how metabolic processes differ across tissues under similar study conditions.
+
+### 2. What are the samples?
+
+- Total samples: 38
+- Sample labels: `sample-1` through `sample-38`
+- Experimental groups: Group A and Group B
+
+Comparing the cord blood dataset with the placenta dataset makes it possible to study how fetal metabolic profiles differ from placental profiles within the same study framework.
+
+### 3. What are the metabolites?
+
+Each row represents a specific metabolite measured in cord blood. These include molecules from different biochemical classes, such as:
+
+- **Amino acids**: for example `beta-citrylglutamate`, which are building blocks of proteins
+- **Lipids**: for example `4-cholesten-3-one`, which are involved in membranes, signaling, and energy storage
+- **Vitamins and cofactors**: molecules required for essential biochemical reactions
+
+### 4. What do the columns indicate?
+
+The columns provide both metabolite identifiers and sample-specific measurement values.
+
+- **Identifiers**: `HMDB ID`, `PUBCHEM ID`, `KEGG ID`, and related fields connect each metabolite to external databases for biological interpretation
+- **Acquisition Method**: values such as `NEGa` or `POSb` indicate the mass spectrometry ionization mode used for detection
+- **Sample values**: columns `sample-1` through `sample-38` contain the measured abundance or intensity of each metabolite in each cord blood sample
+
+### 5. Summary of the file contents
+
+The workbook includes several types of information:
+
+- **Sample Info**: maps each sample ID to Group A or Group B
+- **Peak Area Data**: raw metabolite signal intensities from the instrument
+- **Normalized Data**: cleaned values that have been adjusted, including log transformation and centering, for fair comparison across samples
+- **Data Key**: definitions of spreadsheet terms and column names
+
+In short, this file provides the chemical profile of 38 cord blood samples grouped into two study categories so researchers can evaluate which metabolites and pathways differ between those groups.
+
+---
+
+## Dataset Explanation: mata2022_caco_mar242022.xlsx
+
+`mata2022_caco_mar242022.xlsx` is the broader clinical and environmental dataset for the study. Unlike the placenta and cord blood files, which focus on metabolite measurements, this workbook contains the subject-level maternal, fetal, and exposure variables that give biological and epidemiologic meaning to the metabolomics results.
+
+This workbook functions as a master linkage file connecting the health status of the mother and baby with the metabolic profiles measured in placenta and cord blood.
+
+### 1. What is in this dataset?
+
+This dataset contains information for 40 mother-baby pairs, including:
+
+- **Maternal health**: age, education, BMI, and conditions such as GDM and PIH
+- **Birth outcomes**: birth weight, infant sex, gestational age, preterm status, and low birth weight indicators
+- **Environmental exposure**: weekly PM2.5 exposure estimates across pregnancy, such as `wkly_PM25_hmwk_0` through later gestational weeks
+- **Lifestyle and diet**: variables such as household income, smoking, alcohol use, physical activity, and dietary intake
+
+### 2. Key columns and what they mean
+
+Important variables for analysis include:
+
+- `IDCode` / `matchid`: identifiers used to connect the clinical workbook with sample metadata from the metabolomics files
+- `GDM`: gestational diabetes status, which is likely one of the main case-control grouping variables in the study
+- `Ma_age`: maternal age
+- `birthweight`: infant birth weight in grams
+- `wkly_PM25_...`: weekly air pollution exposure variables across pregnancy
+- `pre_BMI_new`: maternal pre-pregnancy BMI
+
+### 3. What do the rows and columns represent?
+
+- **Rows**: each row corresponds to one mother-baby pair
+- **Columns**: each column corresponds to one clinical, demographic, environmental, or lifestyle variable collected for that pregnancy
+
+### 4. How it connects to the other files
+
+The key link across datasets is the subject identifier.
+
+- In the master clinical workbook, identifiers such as `IDCode` or `matchid` represent individual mother-baby pairs
+- In the metabolite workbooks, measurements are stored under generic sample columns such as `sample-1`, `sample-2`, and so on
+- The `Sample Info` sheet provides the bridge that maps those sample labels to the subject identifiers used in the clinical workbook
+
+This linkage allows researchers to connect exposures and outcomes with metabolite profiles. For example, they can ask:
+
+- Are cord blood metabolites different between GDM and non-GDM pregnancies?
+- Does higher PM2.5 exposure during a specific pregnancy window correspond to shifts in placental lipid metabolism?
+- Are maternal BMI or diet variables associated with metabolite patterns or birth outcomes?
+
+The linkage also makes it possible to compare tissues within the same pregnancy:
+
+- **Placenta data**: reflects metabolic processes at the maternal-fetal interface
+- **Cord blood data**: reflects the metabolic profile reaching the baby
+
+Together, these datasets support analyses of whether observed metabolic patterns are associated with maternal health, environmental exposures, and infant outcomes.
+
+### 5. Summary
+
+Without the clinical workbook, the metabolite tables are mostly anonymous measurements. Without the metabolite tables, the clinical workbook is only demographic and health information. Together, they form the complete study dataset needed to relate pregnancy health and air pollution exposure to metabolomic variation in placenta and cord blood.
 
 ---
 
@@ -211,6 +316,7 @@ pip install pandas numpy scikit-learn matplotlib openpyxl
 1. Place the raw Excel files in `src/raw/`:
    - `MetaPro_placenta_Jan2022.xlsx`
    - `MetaPro_cord_blood_Jan2022.xlsx`
+   - `mata2022_caco_mar242022.xlsx` for the sample metadata and clinical/environmental mapping used in notebook 06
 
 2. Activate the virtual environment (if applicable):
    ```bash
