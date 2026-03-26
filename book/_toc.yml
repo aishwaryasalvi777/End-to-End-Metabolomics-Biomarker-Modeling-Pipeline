@@ -9,3 +9,10 @@ chapters:
   - file: page_02
     sections:
       - file: scripts_documentation/01_placenta_preprocessing
+      - file: scripts_documentation/02_cord_preprocessing
+      - file: scripts_documentation/03_metabolite_summary
+      - file: scripts_documentation/04_pca_analysis
+      - file: scripts_documentation/05_outlier_detection
+      - file: scripts_documentation/06_pc_scores
+      - file: scripts_documentation/07_outlier_loadings
+      - file: scripts_documentation/08_ml_modeling
