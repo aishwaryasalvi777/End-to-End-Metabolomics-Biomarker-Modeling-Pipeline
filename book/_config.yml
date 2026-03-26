@@ -1,0 +1,9 @@
+title: Metabolomics Project Book
+author: Aishvarya
+only_build_toc_files: true
+
+execute:
+  execute_notebooks: off
+
+repository:
+  path_to_book: book
