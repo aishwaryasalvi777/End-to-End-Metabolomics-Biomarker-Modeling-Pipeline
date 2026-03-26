@@ -1,4 +1,4 @@
-# Script 03: Metabolite Summary
+# Page 3: Metabolite Summary
 
 Source script:
 - `src/scripts/03_metabolite_summary.ipynb`

@@ -1,4 +1,4 @@
-# Script 08: ML Modeling (Cord GDM)
+# Page 8: ML Modeling (Cord GDM)
 
 Source script:
 - `src/scripts/08_ML_modeling.ipynb`

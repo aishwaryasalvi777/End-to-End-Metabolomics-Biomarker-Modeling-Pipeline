@@ -1,4 +1,4 @@
-# Script 01: Placenta Preprocessing
+# Page 1: Placenta Preprocessing
 
 Source script:
 - `src/scripts/01_placenta_preprocessing.ipynb`

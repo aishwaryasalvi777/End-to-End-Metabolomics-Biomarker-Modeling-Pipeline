@@ -1,4 +1,4 @@
-# Script 06: PC Scores Mapping
+# Page 6: PC Scores Mapping
 
 Source script:
 - `src/scripts/06_pc_scores.ipynb`

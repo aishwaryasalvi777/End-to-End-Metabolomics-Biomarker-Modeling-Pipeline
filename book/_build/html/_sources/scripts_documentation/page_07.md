@@ -1,4 +1,4 @@
-# Script 07: Outlier Loadings
+# Page 7: Outlier Loadings
 
 Source script:
 - `src/scripts/07_outlier_loadings.ipynb`

@@ -1,4 +1,4 @@
-# Script 04: PCA Analysis
+# Page 4: PCA Analysis
 
 Source script:
 - `src/scripts/04_pca_analysis.ipynb`

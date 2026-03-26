@@ -9,18 +9,18 @@ chapters:
   - file: page_02
     sections:
       - file: scripts_documentation/page_01
-        title: Page 1 - Script 01
+        title: "Page 1: Placenta Preprocessing"
       - file: scripts_documentation/page_02
-        title: Page 2 - Script 02
+        title: "Page 2: Cord Preprocessing"
       - file: scripts_documentation/page_03
-        title: Page 3 - Script 03
+        title: "Page 3: Metabolite Summary"
       - file: scripts_documentation/page_04
-        title: Page 4 - Script 04
+        title: "Page 4: PCA Analysis"
       - file: scripts_documentation/page_05
-        title: Page 5 - Script 05
+        title: "Page 5: Outlier Detection"
       - file: scripts_documentation/page_06
-        title: Page 6 - Script 06
+        title: "Page 6: PC Scores Mapping"
       - file: scripts_documentation/page_07
-        title: Page 7 - Script 07
+        title: "Page 7: Outlier Loadings"
       - file: scripts_documentation/page_08
-        title: Page 8 - Script 08
+        title: "Page 8: ML Modeling (Cord GDM)"

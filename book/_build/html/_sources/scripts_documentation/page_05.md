@@ -1,4 +1,4 @@
-# Script 05: Outlier Detection
+# Page 5: Outlier Detection
 
 Source script:
 - `src/scripts/05_outlier_detection.ipynb`

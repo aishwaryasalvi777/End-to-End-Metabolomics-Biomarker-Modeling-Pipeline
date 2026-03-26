@@ -1,4 +1,4 @@
-# Script 02: Cord Preprocessing
+# Page 2: Cord Preprocessing
 
 Source script:
 - `src/scripts/02_cord_preprocessing.ipynb`
