@@ -1,8 +1,12 @@
-# Page 01
+# Dataset Information
 
-This is the first chapter page for the Jupyter Book website.
+This section organizes dataset documentation into three subpages.
 
-## Notes
+## Dataset Pages
 
-- Add your analysis updates here.
-- Add new pages and register them in `_toc.yml`.
+- [Dataset 1: Placenta metabolomics](dataset/placenta_dataset.md)
+- [Dataset 2: Cord blood metabolomics](dataset/cord_blood_dataset.md)
+- [Dataset 3: Clinical and exposure master dataset](dataset/clinical_exposure_dataset.md)
+
+Use the left sidebar navigation to move between the subpages.
+

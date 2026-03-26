@@ -2,3 +2,10 @@ format: jb-book
 root: intro
 chapters:
   - file: page_01
+    sections:
+      - file: dataset/placenta_dataset
+      - file: dataset/cord_blood_dataset
+      - file: dataset/clinical_exposure_dataset
+  - file: page_02
+    sections:
+      - file: scripts_documentation/01_placenta_preprocessing
