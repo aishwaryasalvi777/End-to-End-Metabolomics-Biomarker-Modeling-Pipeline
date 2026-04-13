@@ -6,7 +6,7 @@
 #   outputs/ml_modeling/output_csv/08_cord_gdm/cov_clean_from_python.csv
 # - Fallback: existing in-memory objects cord_clean and cov_clean
 
-export_base <- file.path("outputs", "ml_modeling", "output_csv", "08_cord_gdm")
+export_base <- file.path("outputs", "ml_modeling", "Python_outputs", "CSV_files")
 cord_export_path <- file.path(export_base, "cord_clean_from_python.csv")
 cov_export_path <- file.path(export_base, "cov_clean_from_python.csv")
 
