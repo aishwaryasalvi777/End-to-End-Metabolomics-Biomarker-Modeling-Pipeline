@@ -16,6 +16,9 @@ This script performs initial preprocessing for the cord blood metabolomics datas
 3. Transposes metabolite data so:
    - rows become samples
    - columns become metabolite `COMP ID`s
+   - # Each woman is a data point, and her 900+ metabolites are her features.
+  
+  # Why this matters: PCA looks for variance across "features." By transposing, you tell the computer: "Each woman is a data point, and her 900+ metabolites are her features." Without this step, your PCA would try to cluster the metabolites instead of the women.
 4. Saves all intermediate/final processed CSV files.
 
 ## Input

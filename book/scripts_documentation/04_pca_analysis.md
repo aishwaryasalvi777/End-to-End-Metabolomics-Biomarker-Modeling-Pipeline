@@ -21,6 +21,17 @@ Runs PCA for placenta-only, cord-only, and combined datasets, and saves PCA scor
 - [pca_cord_only.xlsx](outputs/04_pca_analysis/pca_cord_only.xlsx)
 - [pca_combined_placenta_cord.xlsx](outputs/04_pca_analysis/pca_combined_placenta_cord.xlsx)
 
+# 1. What is a "Score"?
+In your original data, each woman was defined by ~900 metabolites. That is impossible to visualize. PCA takes those 900 measurements and calculates a single "summary number" for each Principal Component.
+
+- The PC1 Score is the summary of the most dominant pattern in the data.
+- The PC2 Score is the summary of the second most dominant pattern.
+
+## What these values tell you about GDM:
+- The "magic" happens when you add your GDM labels back to these scores:
+- If the PC1 scores for your 20 GDM women are all positive (e.g., +5.0, +8.2) and the scores for the 20 Control women are all negative (e.g., -4.1, -6.5), then PC1 has successfully captured the "GDM Signature."
+- If the scores are all mixed together, it means GDM doesn't cause a large enough change in the metabolites to be seen as the primary pattern in the data.
+  
 ## CSV Preview Tables
 
 ### pca_placenta_only.csv

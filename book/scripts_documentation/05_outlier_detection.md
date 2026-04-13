@@ -7,6 +7,32 @@ Source script:
 
 Detects outliers in PCA space for placenta, cord, and combined datasets and saves outlier flags and cleaned combined PCA data.
 
+## The Logic: Threshold-Based Filtering
+- Code uses a specific mathematical rule to find outliers:
+  
+# 1) The Rule: 
+- Any sample whose PC1 or PC2 score is greater than +20 or less than -20 is flagged.
+- 
+# 2)Why 20? 
+- In PCA, scores are usually centered around zero. A score of 20 indicates that the sample is many "steps" away from the average behavior of the group.
+
+# Crucial Observation: 
+ - The sample-22 and sample-25 are outliers in both the placenta and the cord blood. This suggests that for these two individuals, there is a systemic metabolic shift affecting both the mother's side (placenta) and the baby's side (cord).
+
+# 1. The Final "Cleaned" Dataset
+By removing these outliers, we have created a much more robust dataset for your final GDM comparison:
+- Original Count: 78 samples
+- Remaining Count: 69 samples (37 Placenta, 32 Cord)
+
+Removing these 9 samples is a standard "Quality Control" step. It ensures that when we calculate your p-values later, the results aren't being driven by just one or two extremely unusual people.
+
+# 2. What do these outliers represent?
+Because PC1 captures the most variance, these women probably have a unique clinical factor. For example:
+- They might have very high BMI.
+- They might have been on specific medications.
+- Or, they might represent the most extreme cases of GDM.
+
+
 ## Outputs Generated
 
 | Output CSV | Shape (rows x cols) |
@@ -20,6 +46,9 @@ Detects outliers in PCA space for placenta, cord, and combined datasets and save
 - [placenta_outlier_flags_all_samples.xlsx](outputs/05_outlier_detection/placenta_outlier_flags_all_samples.xlsx)
 - [cord_outlier_flags_all_samples.xlsx](outputs/05_outlier_detection/cord_outlier_flags_all_samples.xlsx)
 - [pca_combined_placenta_cord_no_outliers.xlsx](outputs/05_outlier_detection/pca_combined_placenta_cord_no_outliers.xlsx)
+
+
+
 
 ## CSV Preview Tables
 
