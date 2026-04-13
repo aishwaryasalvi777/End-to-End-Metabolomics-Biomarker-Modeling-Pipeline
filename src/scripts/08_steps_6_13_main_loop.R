@@ -287,7 +287,7 @@ cat(sprintf("Rows: %d, Columns: %d\n", nrow(results_df), ncol(results_df)))
 # 3) Log fold change
 # 4) Raw fold change
 
-img_dir <- file.path("outputs", "ml_modeling", "output_images", "08_cord_gdm_in_R")
+img_dir <- file.path("outputs", "ml_modeling", "R_outputs", "Images")
 dir.create(img_dir, recursive = TRUE, showWarnings = FALSE)
 
 save_histogram <- function(x, plot_title, x_label, out_file, color) {
@@ -341,3 +341,105 @@ save_histogram(
   out_file = file.path(img_dir, "hist_raw_fold_change.png"),
   color = "#E45756"
 )
+
+# ## Step 19: Side-by-side significance comparison plots (Raw p vs FDR)
+#
+# Save two figures for alpha thresholds:
+# - 0.05
+# - 0.10
+
+save_significance_comparison <- function(results_tbl, alpha, out_file) {
+  cmp_df <- results_tbl[, c("p_value_raw", "p_value_corrected")]
+  cmp_df <- cmp_df[stats::complete.cases(cmp_df), , drop = FALSE]
+
+  n_total_cmp <- nrow(cmp_df)
+  raw_yes <- sum(cmp_df$p_value_raw < alpha)
+  raw_no <- n_total_cmp - raw_yes
+  fdr_yes <- sum(cmp_df$p_value_corrected < alpha)
+  fdr_no <- n_total_cmp - fdr_yes
+
+  grDevices::png(filename = out_file, width = 1200, height = 560, res = 120)
+  old_par <- graphics::par(no.readonly = TRUE)
+  on.exit({
+    graphics::par(old_par)
+    grDevices::dev.off()
+  }, add = TRUE)
+
+  graphics::par(mfrow = c(1, 2), mar = c(5, 4.5, 4, 1) + 0.1)
+
+  bars1 <- graphics::barplot(
+    height = c(raw_no, raw_yes),
+    names.arg = c("NO", "YES"),
+    col = c("#de0848", "#04066c"),
+    ylim = c(0, max(c(raw_no, raw_yes, 1)) * 1.1),
+    main = sprintf("Raw p < %.2f", alpha),
+    ylab = "Number of metabolites"
+  )
+  graphics::abline(h = graphics::axTicks(2), col = grDevices::rgb(0, 0, 0, alpha = 0.12), lty = 1)
+  graphics::text(bars1, c(raw_no, raw_yes), labels = c(raw_no, raw_yes), pos = 3, cex = 0.95)
+
+  bars2 <- graphics::barplot(
+    height = c(fdr_no, fdr_yes),
+    names.arg = c("NO", "YES"),
+    col = c("#de0848", "#a018d2"),
+    ylim = c(0, max(c(fdr_no, fdr_yes, 1)) * 1.1),
+    main = sprintf("FDR < %.2f", alpha),
+    ylab = ""
+  )
+  graphics::abline(h = graphics::axTicks(2), col = grDevices::rgb(0, 0, 0, alpha = 0.12), lty = 1)
+  graphics::text(bars2, c(fdr_no, fdr_yes), labels = c(fdr_no, fdr_yes), pos = 3, cex = 0.95)
+
+  graphics::mtext(
+    sprintf("Significance Comparison (alpha = %.2f): Raw vs Multiple-Testing Corrected", alpha),
+    side = 3,
+    outer = TRUE,
+    line = -1.5,
+    cex = 1.05
+  )
+
+  cat(sprintf("Saved significance comparison: %s\n", out_file))
+  cat(sprintf("  Raw p<%.2f: %d/%d\n", alpha, raw_yes, n_total_cmp))
+  cat(sprintf("  FDR<%.2f: %d/%d\n", alpha, fdr_yes, n_total_cmp))
+}
+
+save_significance_comparison(
+  results_tbl = results_df,
+  alpha = 0.05,
+  out_file = file.path(img_dir, "significance_comparison_alpha_0_05.png")
+)
+
+save_significance_comparison(
+  results_tbl = results_df,
+  alpha = 0.10,
+  out_file = file.path(img_dir, "significance_comparison_alpha_0_10.png")
+)
+
+# ## Step 20: Save threshold summary table for alpha = 0.10
+
+alpha_summary <- 0.10
+cmp_df_01 <- results_df[, c("p_value_raw", "p_value_corrected")]
+cmp_df_01 <- cmp_df_01[stats::complete.cases(cmp_df_01), , drop = FALSE]
+
+n_total_01 <- nrow(cmp_df_01)
+raw_yes_01 <- sum(cmp_df_01$p_value_raw < alpha_summary)
+fdr_yes_01 <- sum(cmp_df_01$p_value_corrected < alpha_summary)
+
+summary_table_01 <- data.frame(
+  metric = c("Raw p<0.1", "FDR<0.1"),
+  count = c(raw_yes_01, fdr_yes_01),
+  total = c(n_total_01, n_total_01),
+  ratio = c(
+    sprintf("%d/%d", raw_yes_01, n_total_01),
+    sprintf("%d/%d", fdr_yes_01, n_total_01)
+  ),
+  stringsAsFactors = FALSE
+)
+
+r_output_csv_dir <- file.path("outputs", "ml_modeling", "R_outputs", "CSV_files")
+dir.create(r_output_csv_dir, recursive = TRUE, showWarnings = FALSE)
+
+summary_csv_path <- file.path(r_output_csv_dir, "threshold_summary_alpha_0_1.csv")
+utils::write.csv(summary_table_01, summary_csv_path, row.names = FALSE)
+
+cat(sprintf("Saved threshold summary table: %s\n", summary_csv_path))
+print(summary_table_01)
