@@ -230,8 +230,31 @@ if (exists("metabolite_names")) {
 
 # Get metabolite annotations if available
 anno_df <- NULL
-if (exists("CORD_ANNO") && !is.null(CORD_ANNO) && !is.na(CORD_ANNO) && file.exists(CORD_ANNO)) {
-  anno_df <- utils::read.csv(CORD_ANNO, row.names = 1, check.names = FALSE)
+anno_expected_cols <- c(
+  "COMPOUND Name",
+  "SUPER META PATHWAY",
+  "SUB META PATHWAY",
+  "ACQUISITION METHOD",
+  "HMDB ID",
+  "HMDB_annotation",
+  "PUBCHEM ID",
+  "CAS ID",
+  "KEGG ID",
+  "CHEMSPIDER ID"
+)
+
+anno_path <- NULL
+if (exists("CORD_ANNO") && !is.null(CORD_ANNO) && length(CORD_ANNO) == 1 && nzchar(CORD_ANNO) && file.exists(CORD_ANNO)) {
+  anno_path <- CORD_ANNO
+} else {
+  default_anno_path <- file.path("src", "processed_data", "cord", "Met_ana_cord.csv")
+  if (file.exists(default_anno_path)) {
+    anno_path <- default_anno_path
+  }
+}
+
+if (!is.null(anno_path)) {
+  anno_df <- utils::read.csv(anno_path, row.names = 1, check.names = FALSE)
 }
 
 # Create results dataframe
@@ -250,9 +273,21 @@ results_df <- data.frame(
 
 # Add metabolite annotation if available
 if (!is.null(anno_df)) {
+  missing_anno_cols <- setdiff(anno_expected_cols, colnames(anno_df))
+  if (length(missing_anno_cols) > 0) {
+    for (col_name in missing_anno_cols) {
+      anno_df[[col_name]] <- NA_character_
+    }
+  }
+  anno_df <- anno_df[, anno_expected_cols, drop = FALSE]
+
   anno_expanded <- anno_df[match(metabolite_names_local, rownames(anno_df)), , drop = FALSE]
   rownames(anno_expanded) <- NULL
   results_df <- cbind(results_df, anno_expanded)
+} else {
+  for (col_name in anno_expected_cols) {
+    results_df[[col_name]] <- NA_character_
+  }
 }
 
 # Sort by p-value (most significant first)
@@ -268,7 +303,7 @@ print(utils::head(results_df, 10))
 
 
 # Save Step 17 results to CSV
-save_path <- file.path("outputs", "ml_modeling", "output_csv", "08_cord_gdm", "R_Output.csv")
+save_path <- file.path("outputs", "ml_modeling", "R_outputs", "CSV_files", "R_Output.csv")
 dir.create(dirname(save_path), recursive = TRUE, showWarnings = FALSE)
 
 utils::write.csv(results_df, save_path, row.names = FALSE)
@@ -435,6 +470,10 @@ summary_table_01 <- data.frame(
   stringsAsFactors = FALSE
 )
 
+for (col_name in anno_expected_cols) {
+  summary_table_01[[col_name]] <- NA_character_
+}
+
 r_output_csv_dir <- file.path("outputs", "ml_modeling", "R_outputs", "CSV_files")
 dir.create(r_output_csv_dir, recursive = TRUE, showWarnings = FALSE)
 
@@ -443,3 +482,44 @@ utils::write.csv(summary_table_01, summary_csv_path, row.names = FALSE)
 
 cat(sprintf("Saved threshold summary table: %s\n", summary_csv_path))
 print(summary_table_01)
+
+# Save metabolites tables (raw p-value thresholds) with annotations appended.
+raw_p_lt_01 <- !is.na(results_df$p_value_raw) & results_df$p_value_raw < 0.10
+raw_p_lt_005 <- !is.na(results_df$p_value_raw) & results_df$p_value_raw < 0.05
+
+metabolites_raw_p_lt_0_1_detailed <- results_df[
+  raw_p_lt_01,
+  c(
+    "Metabolite", "p_value_raw", "p_value_corrected", "Log_Fold_Change",
+    "Mean_GDM", "Mean_Non_GDM", anno_expected_cols
+  ),
+  drop = FALSE
+]
+
+metabolites_raw_p_lt_0_1 <- results_df[
+  raw_p_lt_01,
+  c("Metabolite", "p_value_raw", "p_value_corrected", "Log_Fold_Change", anno_expected_cols),
+  drop = FALSE
+]
+metabolites_raw_p_lt_0_1 <- cbind(Index = seq_len(nrow(metabolites_raw_p_lt_0_1)), metabolites_raw_p_lt_0_1)
+
+metabolites_raw_p_lt_0_05 <- results_df[
+  raw_p_lt_005,
+  c(
+    "Metabolite", "p_value_raw", "p_value_corrected", "Log_Fold_Change",
+    "Mean_GDM", "Mean_Non_GDM", anno_expected_cols
+  ),
+  drop = FALSE
+]
+
+out_p01_detailed <- file.path(r_output_csv_dir, "metabolites_raw_p_lt_0_1_detailed.csv")
+out_p01 <- file.path(r_output_csv_dir, "metabolites_raw_p_lt_0_1.csv")
+out_p005 <- file.path(r_output_csv_dir, "metabolites_raw_p_lt_0_05.csv")
+
+utils::write.csv(metabolites_raw_p_lt_0_1_detailed, out_p01_detailed, row.names = FALSE)
+utils::write.csv(metabolites_raw_p_lt_0_1, out_p01, row.names = FALSE)
+utils::write.csv(metabolites_raw_p_lt_0_05, out_p005, row.names = FALSE)
+
+cat(sprintf("Saved table: %s (rows=%d)\n", out_p01_detailed, nrow(metabolites_raw_p_lt_0_1_detailed)))
+cat(sprintf("Saved table: %s (rows=%d)\n", out_p01, nrow(metabolites_raw_p_lt_0_1)))
+cat(sprintf("Saved table: %s (rows=%d)\n", out_p005, nrow(metabolites_raw_p_lt_0_05)))
