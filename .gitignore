@@ -1,2 +1,7 @@
 outputs/
 .DS_Store
+.DS_Store
+book/.DS_Store
+src/.DS_Store
+src/processed_data/.DS_Store
+src/scripts/.DS_Store
