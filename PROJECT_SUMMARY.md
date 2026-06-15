@@ -649,7 +649,7 @@ If PM2.5 drives GDM via these mechanisms, we would expect:
 
 ## 📞 CONTACT & DOCUMENTATION
 
-**Project Lead**: [Your Name]  
+**Project Lead**: AISHVARYA SALVI
 **Location**: University at Buffalo, Department of [...]  
 **GitHub/Repository**: [Link to repo]  
 **Data Release**: January 2022 collection, ongoing analysis  

@@ -1,0 +1,590 @@
+Metabolomics_Project/
+.DS_Store
+.gitattributes
+.github
+|-- workflows
+.gitignore
+.vscode
+|-- settings.json
+INTERVIEW_EXPLANATION.md
+KNN_Mapping_1.png
+KNN_Mapping_2.png
+PROJECT_SUMMARY.md
+PROJECT_TREE.txt
+README.md
+_build
+|-- logs
+|   |-- myst.build.json
+book
+|-- .DS_Store
+|-- _build
+|   |-- .doctrees
+|   |   |-- dataset
+|   |   |   |-- clinical_exposure_dataset.doctree
+|   |   |   |-- cord_blood_dataset.doctree
+|   |   |   |-- placenta_dataset.doctree
+|   |   |-- environment.pickle
+|   |   |-- intro.doctree
+|   |   |-- page_01.doctree
+|   |   |-- page_02.doctree
+|   |   |-- scripts_documentation
+|   |   |   |-- page_01.doctree
+|   |   |   |-- page_02.doctree
+|   |   |   |-- page_03.doctree
+|   |   |   |-- page_04.doctree
+|   |   |   |-- page_05.doctree
+|   |   |   |-- page_06.doctree
+|   |   |   |-- page_07.doctree
+|   |   |   |-- page_08.doctree
+|   |-- html
+|   |   |-- .buildinfo
+|   |   |-- _downloads
+|   |   |   |-- 026c515e5a0f011db57742f9fbfc47d1
+|   |   |   |   |-- pca_combined_placenta_cord.xlsx
+|   |   |   |-- 41853c1b335e48773c39a632689cb3c1
+|   |   |   |   |-- pca_placenta_only.xlsx
+|   |   |   |-- 4f20c88d6b97f3d8a28a274d2f660d93
+|   |   |   |   |-- placenta_mapped_with_pc1_pc2.xlsx
+|   |   |   |-- 52dab83fcb0d823c268785cb480c6855
+|   |   |   |   |-- metabolites_common_cord_placenta.xlsx
+|   |   |   |-- 56de4eba904b0ffa58fc3b2769e44f79
+|   |   |   |   |-- pca_cord_only.xlsx
+|   |   |   |-- 575efb6d4f05a84ae43f86d43d8f7027
+|   |   |   |   |-- cord_outlier_flags_all_samples.xlsx
+|   |   |   |-- 6d8107cab654dc2400d2224c9127a7b4
+|   |   |   |   |-- Met_ana_cord.xlsx
+|   |   |   |-- 75407f43c42da69afd7e581fb6f65434
+|   |   |   |   |-- combined_outlier_contributions.xlsx
+|   |   |   |-- 7a01acd2f528438a845107d363b7f78a
+|   |   |   |   |-- placenta_outlier_flags_all_samples.xlsx
+|   |   |   |-- 7dd25e5f59bad840727a6ba2d8d482d0
+|   |   |   |   |-- pca_combined_placenta_cord_no_outliers.xlsx
+|   |   |   |-- 8efaf69c12496e6c8ad3e76d9fa7c1ba
+|   |   |   |   |-- common_mapped_with_pc1_pc2.xlsx
+|   |   |   |-- 950f92fdc63b5cdeb289f4a8212ebdb8
+|   |   |   |   |-- outlier_findings_summary_with_explanations.xlsx
+|   |   |   |-- a2323fa7ffa1c8fed6809b939fabdb55
+|   |   |   |   |-- cord_mapped_with_pc1_pc2.xlsx
+|   |   |   |-- a7eda357c27fd433ab6bcdd00a1cfa09
+|   |   |   |   |-- combined_top_loadings_pc1_pc2.xlsx
+|   |   |   |-- d06c1fc6c03477f3bb94324d59d1279e
+|   |   |   |   |-- Met_data_cord_T.xlsx
+|   |   |   |-- dcc9b115f45b7e922d04bc83c9738b0f
+|   |   |   |   |-- Met_data_cord.xlsx
+|   |   |   |-- ff73219fd9daeac72228acc56d52c047
+|   |   |   |   |-- cord_metabolite_gdm_ols_results.xlsx
+|   |   |-- _images
+|   |   |   |-- Project_Poster.png
+|   |   |-- _sources
+|   |   |   |-- dataset
+|   |   |   |   |-- clinical_exposure_dataset.md
+|   |   |   |   |-- cord_blood_dataset.md
+|   |   |   |   |-- placenta_dataset.md
+|   |   |   |-- intro.md
+|   |   |   |-- page_01.md
+|   |   |   |-- page_02.md
+|   |   |   |-- scripts_documentation
+|   |   |   |   |-- page_01.md
+|   |   |   |   |-- page_02.md
+|   |   |   |   |-- page_03.md
+|   |   |   |   |-- page_04.md
+|   |   |   |   |-- page_05.md
+|   |   |   |   |-- page_06.md
+|   |   |   |   |-- page_07.md
+|   |   |   |   |-- page_08.md
+|   |   |-- _sphinx_design_static
+|   |   |   |-- design-tabs.js
+|   |   |   |-- sphinx-design.min.css
+|   |   |-- _static
+|   |   |   |-- basic.css
+|   |   |   |-- check-solid.svg
+|   |   |   |-- clipboard.min.js
+|   |   |   |-- copy-button.svg
+|   |   |   |-- copybutton.css
+|   |   |   |-- copybutton.js
+|   |   |   |-- copybutton_funcs.js
+|   |   |   |-- design-tabs.js
+|   |   |   |-- doctools.js
+|   |   |   |-- documentation_options.js
+|   |   |   |-- file.png
+|   |   |   |-- images
+|   |   |   |   |-- logo_binder.svg
+|   |   |   |   |-- logo_colab.png
+|   |   |   |   |-- logo_deepnote.svg
+|   |   |   |   |-- logo_jupyterhub.svg
+|   |   |   |-- language_data.js
+|   |   |   |-- locales
+|   |   |   |   |-- ar
+|   |   |   |   |   |-- LC_MESSAGES
+|   |   |   |   |   |   |-- booktheme.mo
+|   |   |   |   |   |   |-- booktheme.po
+|   |   |   |   |-- bg
+|   |   |   |   |   |-- LC_MESSAGES
+|   |   |   |   |   |   |-- booktheme.mo
+|   |   |   |   |   |   |-- booktheme.po
+|   |   |   |   |-- bn
+|   |   |   |   |   |-- LC_MESSAGES
+|   |   |   |   |   |   |-- booktheme.mo
+|   |   |   |   |   |   |-- booktheme.po
+|   |   |   |   |-- ca
+|   |   |   |   |   |-- LC_MESSAGES
+|   |   |   |   |   |   |-- booktheme.mo
+|   |   |   |   |   |   |-- booktheme.po
+|   |   |   |   |-- cs
+|   |   |   |   |   |-- LC_MESSAGES
+|   |   |   |   |   |   |-- booktheme.mo
+|   |   |   |   |   |   |-- booktheme.po
+|   |   |   |   |-- da
+|   |   |   |   |   |-- LC_MESSAGES
+|   |   |   |   |   |   |-- booktheme.mo
+|   |   |   |   |   |   |-- booktheme.po
+|   |   |   |   |-- de
+|   |   |   |   |   |-- LC_MESSAGES
+|   |   |   |   |   |   |-- booktheme.mo
+|   |   |   |   |   |   |-- booktheme.po
+|   |   |   |   |-- el
+|   |   |   |   |   |-- LC_MESSAGES
+|   |   |   |   |   |   |-- booktheme.mo
+|   |   |   |   |   |   |-- booktheme.po
+|   |   |   |   |-- eo
+|   |   |   |   |   |-- LC_MESSAGES
+|   |   |   |   |   |   |-- booktheme.mo
+|   |   |   |   |   |   |-- booktheme.po
+|   |   |   |   |-- es
+|   |   |   |   |   |-- LC_MESSAGES
+|   |   |   |   |   |   |-- booktheme.mo
+|   |   |   |   |   |   |-- booktheme.po
+|   |   |   |   |-- et
+|   |   |   |   |   |-- LC_MESSAGES
+|   |   |   |   |   |   |-- booktheme.mo
+|   |   |   |   |   |   |-- booktheme.po
+|   |   |   |   |-- fi
+|   |   |   |   |   |-- LC_MESSAGES
+|   |   |   |   |   |   |-- booktheme.mo
+|   |   |   |   |   |   |-- booktheme.po
+|   |   |   |   |-- fr
+|   |   |   |   |   |-- LC_MESSAGES
+|   |   |   |   |   |   |-- booktheme.mo
+|   |   |   |   |   |   |-- booktheme.po
+|   |   |   |   |-- hr
+|   |   |   |   |   |-- LC_MESSAGES
+|   |   |   |   |   |   |-- booktheme.mo
+|   |   |   |   |   |   |-- booktheme.po
+|   |   |   |   |-- id
+|   |   |   |   |   |-- LC_MESSAGES
+|   |   |   |   |   |   |-- booktheme.mo
+|   |   |   |   |   |   |-- booktheme.po
+|   |   |   |   |-- it
+|   |   |   |   |   |-- LC_MESSAGES
+|   |   |   |   |   |   |-- booktheme.mo
+|   |   |   |   |   |   |-- booktheme.po
+|   |   |   |   |-- iw
+|   |   |   |   |   |-- LC_MESSAGES
+|   |   |   |   |   |   |-- booktheme.mo
+|   |   |   |   |   |   |-- booktheme.po
+|   |   |   |   |-- ja
+|   |   |   |   |   |-- LC_MESSAGES
+|   |   |   |   |   |   |-- booktheme.mo
+|   |   |   |   |   |   |-- booktheme.po
+|   |   |   |   |-- ko
+|   |   |   |   |   |-- LC_MESSAGES
+|   |   |   |   |   |   |-- booktheme.mo
+|   |   |   |   |   |   |-- booktheme.po
+|   |   |   |   |-- lt
+|   |   |   |   |   |-- LC_MESSAGES
+|   |   |   |   |   |   |-- booktheme.mo
+|   |   |   |   |   |   |-- booktheme.po
+|   |   |   |   |-- lv
+|   |   |   |   |   |-- LC_MESSAGES
+|   |   |   |   |   |   |-- booktheme.mo
+|   |   |   |   |   |   |-- booktheme.po
+|   |   |   |   |-- ml
+|   |   |   |   |   |-- LC_MESSAGES
+|   |   |   |   |   |   |-- booktheme.mo
+|   |   |   |   |   |   |-- booktheme.po
+|   |   |   |   |-- mr
+|   |   |   |   |   |-- LC_MESSAGES
+|   |   |   |   |   |   |-- booktheme.mo
+|   |   |   |   |   |   |-- booktheme.po
+|   |   |   |   |-- ms
+|   |   |   |   |   |-- LC_MESSAGES
+|   |   |   |   |   |   |-- booktheme.mo
+|   |   |   |   |   |   |-- booktheme.po
+|   |   |   |   |-- nl
+|   |   |   |   |   |-- LC_MESSAGES
+|   |   |   |   |   |   |-- booktheme.mo
+|   |   |   |   |   |   |-- booktheme.po
+|   |   |   |   |-- no
+|   |   |   |   |   |-- LC_MESSAGES
+|   |   |   |   |   |   |-- booktheme.mo
+|   |   |   |   |   |   |-- booktheme.po
+|   |   |   |   |-- pl
+|   |   |   |   |   |-- LC_MESSAGES
+|   |   |   |   |   |   |-- booktheme.mo
+|   |   |   |   |   |   |-- booktheme.po
+|   |   |   |   |-- pt
+|   |   |   |   |   |-- LC_MESSAGES
+|   |   |   |   |   |   |-- booktheme.mo
+|   |   |   |   |   |   |-- booktheme.po
+|   |   |   |   |-- ro
+|   |   |   |   |   |-- LC_MESSAGES
+|   |   |   |   |   |   |-- booktheme.mo
+|   |   |   |   |   |   |-- booktheme.po
+|   |   |   |   |-- ru
+|   |   |   |   |   |-- LC_MESSAGES
+|   |   |   |   |   |   |-- booktheme.mo
+|   |   |   |   |   |   |-- booktheme.po
+|   |   |   |   |-- sk
+|   |   |   |   |   |-- LC_MESSAGES
+|   |   |   |   |   |   |-- booktheme.mo
+|   |   |   |   |   |   |-- booktheme.po
+|   |   |   |   |-- sl
+|   |   |   |   |   |-- LC_MESSAGES
+|   |   |   |   |   |   |-- booktheme.mo
+|   |   |   |   |   |   |-- booktheme.po
+|   |   |   |   |-- sr
+|   |   |   |   |   |-- LC_MESSAGES
+|   |   |   |   |   |   |-- booktheme.mo
+|   |   |   |   |   |   |-- booktheme.po
+|   |   |   |   |-- sv
+|   |   |   |   |   |-- LC_MESSAGES
+|   |   |   |   |   |   |-- booktheme.mo
+|   |   |   |   |   |   |-- booktheme.po
+|   |   |   |   |-- ta
+|   |   |   |   |   |-- LC_MESSAGES
+|   |   |   |   |   |   |-- booktheme.mo
+|   |   |   |   |   |   |-- booktheme.po
+|   |   |   |   |-- te
+|   |   |   |   |   |-- LC_MESSAGES
+|   |   |   |   |   |   |-- booktheme.mo
+|   |   |   |   |   |   |-- booktheme.po
+|   |   |   |   |-- tg
+|   |   |   |   |   |-- LC_MESSAGES
+|   |   |   |   |   |   |-- booktheme.mo
+|   |   |   |   |   |   |-- booktheme.po
+|   |   |   |   |-- th
+|   |   |   |   |   |-- LC_MESSAGES
+|   |   |   |   |   |   |-- booktheme.mo
+|   |   |   |   |   |   |-- booktheme.po
+|   |   |   |   |-- tl
+|   |   |   |   |   |-- LC_MESSAGES
+|   |   |   |   |   |   |-- booktheme.mo
+|   |   |   |   |   |   |-- booktheme.po
+|   |   |   |   |-- tr
+|   |   |   |   |   |-- LC_MESSAGES
+|   |   |   |   |   |   |-- booktheme.mo
+|   |   |   |   |   |   |-- booktheme.po
+|   |   |   |   |-- uk
+|   |   |   |   |   |-- LC_MESSAGES
+|   |   |   |   |   |   |-- booktheme.mo
+|   |   |   |   |   |   |-- booktheme.po
+|   |   |   |   |-- ur
+|   |   |   |   |   |-- LC_MESSAGES
+|   |   |   |   |   |   |-- booktheme.mo
+|   |   |   |   |   |   |-- booktheme.po
+|   |   |   |   |-- vi
+|   |   |   |   |   |-- LC_MESSAGES
+|   |   |   |   |   |   |-- booktheme.mo
+|   |   |   |   |   |   |-- booktheme.po
+|   |   |   |   |-- zh_CN
+|   |   |   |   |   |-- LC_MESSAGES
+|   |   |   |   |   |   |-- booktheme.mo
+|   |   |   |   |   |   |-- booktheme.po
+|   |   |   |   |-- zh_TW
+|   |   |   |   |   |-- LC_MESSAGES
+|   |   |   |   |   |   |-- booktheme.mo
+|   |   |   |   |   |   |-- booktheme.po
+|   |   |   |-- minus.png
+|   |   |   |-- mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css
+|   |   |   |-- play-solid.svg
+|   |   |   |-- plus.png
+|   |   |   |-- pygments.css
+|   |   |   |-- sbt-webpack-macros.html
+|   |   |   |-- scripts
+|   |   |   |   |-- bootstrap.js
+|   |   |   |   |-- bootstrap.js.LICENSE.txt
+|   |   |   |   |-- bootstrap.js.map
+|   |   |   |   |-- pydata-sphinx-theme.js
+|   |   |   |   |-- pydata-sphinx-theme.js.map
+|   |   |   |   |-- sphinx-book-theme.js
+|   |   |   |   |-- sphinx-book-theme.js.map
+|   |   |   |-- searchtools.js
+|   |   |   |-- sphinx-design.min.css
+|   |   |   |-- sphinx-thebe.css
+|   |   |   |-- sphinx-thebe.js
+|   |   |   |-- sphinx_highlight.js
+|   |   |   |-- styles
+|   |   |   |   |-- bootstrap.css
+|   |   |   |   |-- bootstrap.css.map
+|   |   |   |   |-- pydata-sphinx-theme.css
+|   |   |   |   |-- pydata-sphinx-theme.css.map
+|   |   |   |   |-- sphinx-book-theme.css
+|   |   |   |   |-- sphinx-book-theme.css.map
+|   |   |   |   |-- theme.css
+|   |   |   |-- togglebutton.css
+|   |   |   |-- togglebutton.js
+|   |   |   |-- vendor
+|   |   |   |   |-- fontawesome
+|   |   |   |   |   |-- 6.5.2
+|   |   |   |   |   |   |-- LICENSE.txt
+|   |   |   |   |   |   |-- css
+|   |   |   |   |   |   |   |-- all.min.css
+|   |   |   |   |   |   |-- js
+|   |   |   |   |   |   |   |-- all.min.js
+|   |   |   |   |   |   |   |-- all.min.js.LICENSE.txt
+|   |   |   |   |   |   |-- webfonts
+|   |   |   |   |   |   |   |-- fa-brands-400.ttf
+|   |   |   |   |   |   |   |-- fa-brands-400.woff2
+|   |   |   |   |   |   |   |-- fa-regular-400.ttf
+|   |   |   |   |   |   |   |-- fa-regular-400.woff2
+|   |   |   |   |   |   |   |-- fa-solid-900.ttf
+|   |   |   |   |   |   |   |-- fa-solid-900.woff2
+|   |   |   |   |   |   |   |-- fa-v4compatibility.ttf
+|   |   |   |   |   |   |   |-- fa-v4compatibility.woff2
+|   |   |   |-- webpack-macros.html
+|   |   |-- dataset
+|   |   |   |-- clinical_exposure_dataset.html
+|   |   |   |-- cord_blood_dataset.html
+|   |   |   |-- placenta_dataset.html
+|   |   |-- genindex.html
+|   |   |-- index.html
+|   |   |-- intro.html
+|   |   |-- objects.inv
+|   |   |-- page_01.html
+|   |   |-- page_02.html
+|   |   |-- scripts_documentation
+|   |   |   |-- page_01.html
+|   |   |   |-- page_02.html
+|   |   |   |-- page_03.html
+|   |   |   |-- page_04.html
+|   |   |   |-- page_05.html
+|   |   |   |-- page_06.html
+|   |   |   |-- page_07.html
+|   |   |   |-- page_08.html
+|   |   |-- search.html
+|   |   |-- searchindex.js
+|-- _config.yml
+|-- _toc.yml
+|-- dataset
+|   |-- clinical_exposure_dataset.md
+|   |-- cord_blood_dataset.md
+|   |-- placenta_dataset.md
+|-- doc_images
+|   |-- Project_Poster.png
+|-- intro.md
+|-- page_01.md
+|-- page_02.md
+|-- requirements.txt
+|-- scripts_documentation
+|   |-- 01_placenta_preprocessing.md
+|   |-- 02_cord_preprocessing.md
+|   |-- 03_metabolite_summary.md
+|   |-- 04_pca_analysis.md
+|   |-- 05_outlier_detection.md
+|   |-- 06_pc_scores.md
+|   |-- 07_outlier_loadings.md
+|   |-- 08_ml_modeling.md
+|   |-- outputs
+|   |   |-- 01_placenta_preprocessing
+|   |   |   |-- Met_ana_placenta.xlsx
+|   |   |   |-- Met_data_placenta.xlsx
+|   |   |   |-- Met_data_placenta_T.xlsx
+|   |   |-- 02_cord_preprocessing
+|   |   |   |-- Met_ana_cord.xlsx
+|   |   |   |-- Met_data_cord.xlsx
+|   |   |   |-- Met_data_cord_T.xlsx
+|   |   |-- 03_metabolite_summary
+|   |   |   |-- metabolites_common_cord_placenta.xlsx
+|   |   |-- 04_pca_analysis
+|   |   |   |-- pca_combined_placenta_cord.xlsx
+|   |   |   |-- pca_cord_only.xlsx
+|   |   |   |-- pca_placenta_only.xlsx
+|   |   |-- 05_outlier_detection
+|   |   |   |-- cord_outlier_flags_all_samples.xlsx
+|   |   |   |-- pca_combined_placenta_cord_no_outliers.xlsx
+|   |   |   |-- placenta_outlier_flags_all_samples.xlsx
+|   |   |-- 06_pc_scores
+|   |   |   |-- common_mapped_with_pc1_pc2.xlsx
+|   |   |   |-- cord_mapped_with_pc1_pc2.xlsx
+|   |   |   |-- placenta_mapped_with_pc1_pc2.xlsx
+|   |   |-- 07_outlier_loadings
+|   |   |   |-- combined_outlier_contributions.xlsx
+|   |   |   |-- combined_top_loadings_pc1_pc2.xlsx
+|   |   |   |-- outlier_findings_summary_with_explanations.xlsx
+|   |   |-- 08_ml_modeling
+|   |   |   |-- cord_metabolite_gdm_ols_results.xlsx
+|   |-- page_01.md
+|   |-- page_02.md
+|   |-- page_03.md
+|   |-- page_04.md
+|   |-- page_05.md
+|   |-- page_06.md
+|   |-- page_07.md
+|   |-- page_08.md
+other
+|-- First Tasks.docx
+|-- Metabolite_Comparison_Summary.xlsx
+|-- Table1_results.xlsx
+|-- Table1_results_clean.xlsx
+|-- placenta.py
+|-- placenta_analysis.Rmd
+outputs
+|-- .DS_Store
+|-- .gitignore
+|-- ml_modeling
+|   |-- .DS_Store
+|   |-- 08_output_images
+|   |   |-- Covariate Missingness Out of Total Samples.png
+|   |   |-- Covariates After Cleaning.png
+|   |   |-- Heatmap- Top 25 Metabolites (Z-scored), Samples Ordered by GDM.png
+|   |   |-- Missing_Samples.png
+|   |   |-- op Effect Sizes- Decreased (blue) vs Increased (red) in GDM.png
+|   |-- output_csv
+|   |   |-- .DS_Store
+|   |   |-- 08_cord_gdm
+|   |   |   |-- Linear_Model_data.csv
+|   |   |   |-- R_Output.csv
+|   |   |   |-- cord_clean_from_python.csv
+|   |   |   |-- cord_metabolite_gdm_ols_results_OLD.csv
+|   |   |   |-- cov_clean_from_python.csv
+|   |-- output_images
+|   |   |-- .DS_Store
+|   |   |-- 08_cord_gdm_in_R
+|   |   |   |-- hist_bh_adjusted_p_values.png
+|   |   |   |-- hist_log_fold_change.png
+|   |   |   |-- hist_raw_fold_change.png
+|   |   |   |-- hist_raw_p_values.png
+|-- output_images
+|   |-- .DS_Store
+|   |-- 07_outlier_loadings
+|   |   |-- cord_sample-20_pc1_top_contributions.png
+|   |   |-- cord_sample-22_pc1_top_contributions.png
+|   |   |-- cord_sample-23_pc1_top_contributions.png
+|   |   |-- cord_sample-25_pc1_top_contributions.png
+|   |   |-- cord_sample-25_pc2_top_contributions.png
+|   |   |-- cord_sample-29_pc1_top_contributions.png
+|   |   |-- cord_sample-33_pc2_top_contributions.png
+|   |   |-- cord_sample-37_pc2_top_contributions.png
+|   |   |-- placenta_sample-12_pc1_top_contributions.png
+|   |   |-- placenta_sample-12_pc2_top_contributions.png
+|   |   |-- placenta_sample-22_pc1_top_contributions.png
+|   |   |-- placenta_sample-22_pc2_top_contributions.png
+|   |   |-- placenta_sample-25_pc1_top_contributions.png
+|   |   |-- placenta_sample-25_pc2_top_contributions.png
+|-- pca
+|   |-- .DS_Store
+|   |-- output_csv
+|   |   |-- .DS_Store
+|   |   |-- 04_pca
+|   |   |   |-- pca_combined_placenta_cord.csv
+|   |   |   |-- pca_cord_only.csv
+|   |   |   |-- pca_placenta_only.csv
+|   |   |-- 05_outliers
+|   |   |   |-- combined_outlier_flags_all_samples.csv
+|   |   |   |-- combined_outliers_only.csv
+|   |   |   |-- cord_outlier_flags_all_samples.csv
+|   |   |   |-- cord_outliers_only.csv
+|   |   |   |-- pca_combined_placenta_cord_no_outliers.csv
+|   |   |   |-- placenta_outlier_flags_all_samples.csv
+|   |   |   |-- placenta_outliers_only.csv
+|   |   |-- 06_pc_scores
+|   |   |   |-- common_mapped_with_pc1_pc2.csv
+|   |   |   |-- common_mapped_with_pc1_pc2.xlsx
+|   |   |   |-- common_sampleid_group_pc1_pc2.csv
+|   |   |   |-- cord_mapped_with_pc1_pc2.csv
+|   |   |   |-- cord_mapped_with_pc1_pc2.xlsx
+|   |   |   |-- cord_sampleid_pc1_pc2.csv
+|   |   |   |-- placenta_mapped_with_pc1_pc2.csv
+|   |   |   |-- placenta_mapped_with_pc1_pc2.xlsx
+|   |   |   |-- placenta_sampleid_pc1_pc2.csv
+|   |   |-- 07_outlier_loadings
+|   |   |   |-- .DS_Store
+|   |   |   |-- combined_outlier_contributions.csv
+|   |   |   |-- combined_recurrent_driver_summary.csv
+|   |   |   |-- combined_top_loadings_pc1_pc2.csv
+|   |   |   |-- cord_outlier_contributions.csv
+|   |   |   |-- cord_recurrent_driver_summary.csv
+|   |   |   |-- cord_top_loadings_pc1_pc2.csv
+|   |   |   |-- csv
+|   |   |   |   |-- combined_outlier_contributions.csv
+|   |   |   |   |-- combined_recurrent_driver_summary.csv
+|   |   |   |   |-- combined_top_loadings_pc1_pc2.csv
+|   |   |   |   |-- cord_outlier_contributions.csv
+|   |   |   |   |-- cord_recurrent_driver_summary.csv
+|   |   |   |   |-- cord_top_loadings_pc1_pc2.csv
+|   |   |   |   |-- outlier_driver_explanations.csv
+|   |   |   |   |-- placenta_outlier_contributions.csv
+|   |   |   |   |-- placenta_recurrent_driver_summary.csv
+|   |   |   |   |-- placenta_top_loadings_pc1_pc2.csv
+|   |   |   |-- outlier_findings_summary_with_explanations.csv
+|   |   |   |-- placenta_outlier_contributions.csv
+|   |   |   |-- placenta_recurrent_driver_summary.csv
+|   |   |   |-- placenta_top_loadings_pc1_pc2.csv
+|   |   |   |-- xlsx
+|   |   |   |   |-- combined_outlier_contributions.xlsx
+|   |   |   |   |-- combined_recurrent_driver_summary.xlsx
+|   |   |   |   |-- combined_top_loadings_pc1_pc2.xlsx
+|   |   |   |   |-- cord_outlier_contributions.xlsx
+|   |   |   |   |-- cord_recurrent_driver_summary.xlsx
+|   |   |   |   |-- cord_top_loadings_pc1_pc2.xlsx
+|   |   |   |   |-- outlier_driver_explanations.xlsx
+|   |   |   |   |-- placenta_outlier_contributions.xlsx
+|   |   |   |   |-- placenta_recurrent_driver_summary.xlsx
+|   |   |   |   |-- placenta_top_loadings_pc1_pc2.xlsx
+|   |   |-- pca_combined_placenta_cord_no_outliers.csv
+|   |-- output_images
+|   |   |-- .DS_Store
+|   |   |-- 04_pca
+|   |   |   |-- combined_placenta_cord_pc1_pc2.png
+|   |   |   |-- combined_scree.png
+|   |   |   |-- cord_pca_pc1_pc2.png
+|   |   |   |-- cord_scree.png
+|   |   |   |-- placenta_pca_pc1_pc2.png
+|   |   |   |-- placenta_scree.png
+|   |   |-- 05_outliers
+|   |   |   |-- combined_pc1_pc2_outliers_labeled.png
+|   |   |   |-- cord_pc1_pc2_outliers_labeled.png
+|   |   |   |-- placenta_pc1_pc2_outliers_labeled.png
+|-- summary_tables
+|   |-- metabolites_common_cord_placenta.xlsx
+resume.txt
+src
+|-- .DS_Store
+|-- processed_data
+|   |-- .DS_Store
+|   |-- cord
+|   |   |-- Met_ana_cord.csv
+|   |   |-- Met_data_cord.csv
+|   |   |-- Met_data_cord_T.csv
+|   |-- placenta
+|   |   |-- Met_ana_placenta.csv
+|   |   |-- Met_data_placenta.csv
+|   |   |-- Met_data_placenta_T.csv
+|-- raw
+|   |-- MetaPro_cord_blood_Jan2022.xlsx
+|   |-- MetaPro_placenta_Jan2022.xlsx
+|   |-- mata2022_caco_mar242022.xlsx
+|-- scripts
+|   |-- .DS_Store
+|   |-- 01_placenta_preprocessing.ipynb
+|   |-- 02_cord_preprocessing.ipynb
+|   |-- 03_metabolite_summary.ipynb
+|   |-- 04_pca_analysis.ipynb
+|   |-- 05_outlier_detection.ipynb
+|   |-- 06_pc_scores.ipynb
+|   |-- 07_outlier_loadings.ipynb
+|   |-- 08_ML_modeling copy.ipynb
+|   |-- 08_ML_modeling.ipynb
+|   |-- 08_steps_6_13_main_loop.R
+|   |-- __pycache__
+|   |   |-- 01_placenta_preprocessing.cpython-39.pyc
+|   |-- outputs
+|   |   |-- .DS_Store
+|   |   |-- outlier_analysis
+|-- utils
+|   |-- .DS_Store
+|   |-- __pycache__
+|   |   |-- config.cpython-39.pyc
+|   |   |-- io_utils.cpython-39.pyc
+|   |-- config.py
+|   |-- io_utils.py

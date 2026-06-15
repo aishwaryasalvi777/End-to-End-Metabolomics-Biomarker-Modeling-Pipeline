@@ -1,0 +1,106 @@
+%FileName : AishvaryaSalvi{Role Abbreviation }_{CompanyName}
+\documentclass[10.5pt, letterpaper]{article}
+\usepackage[letterpaper, margin=0.3in]{geometry}
+\usepackage[english]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[sfdefault]{noto}
+\usepackage{enumitem}
+\setlist[itemize]{noitemsep, topsep=2pt, leftmargin=1.1em, label=--}
+\usepackage[hidelinks]{hyperref}
+\usepackage{xcolor}
+\usepackage{titlesec}
+\usepackage{array}
+\setlength{\parindent}{0pt}
+\pagestyle{empty}
+\definecolor{linkblue}{RGB}{0, 0, 238}
+\csname titleformat\endcsname{\section}{\large\bfseries}{}{0em}{}[\csname titlerule\endcsname]
+\csname titlespacing\endcsname*{\section}{0pt}{5pt}{4pt}
+\hyphenpenalty=10000    
+%\exhyphenpenalty=10000  
+
+\usepackage{enumitem} 
+\setlist[itemize]{ noitemsep, topsep=2pt,leftmargin=*,
+label=\textbullet}       
+\pretolerance=1000
+\tolerance=2000
+\emergencystretch=1em
+\begin{document}
+% Header
+\begin{center}
+    {\csname Huge\endcsname \csname textbf\endcsname{Aishvarya Salvi}} \\
+    \vspace{2pt}
+    Buffalo, NY $\bullet$ +1 7164657631 $\bullet$ \href{mailto:aishwarya.salvi28@gmail.com}{aishwarya.salvi28@gmail.com} $\bullet$ 
+    \href{https://www.linkedin.com/in/aishvaryasalvi}{\color{linkblue}LinkedIn} $\bullet$ \href{https://github.com/aishwaryasalvi777}{\color{linkblue}GitHub} $\bullet$ \href{https://aishvaryaportfolio.netlify.app/}{\color{linkblue}Portfolio}
+\end{center}
+
+
+% Profile
+\section*{Profile}
+Data Analytics ML Engineer with 4+ years of experience in ETL/ELT operations, scalable Azure infrastructure, and data manipulation. Expert in Azure Data Factory, Python, and SQL, specializing in modernizing data services and transforming complex datasets into actionable insights.
+% Education
+\section*{Education}
+\csname textbf\endcsname{University at Buffalo-NY}, Master of Science in Data Science  \hfill  2025 \\
+\csname textbf\endcsname{University at Pune-India}, Bachelors in Computer Science \hfill 2021 
+
+
+% Experience
+\section*{Professional Experience}
+
+
+{\csname textbf\endcsname{Data Scientist, \href{https://publichealth.buffalo.edu/}{\color{linkblue}University at Buffalo }}} \hfill 01/26 – Present
+\begin{itemize}
+    \item Developed a Python-based clinical metabolomics pipeline on high–dimensional biospecimens, standardizing 1K+ metabolites for earlier high–risk patient screening and risk stratification.
+    \item Designed ETL pipelines for untargeted metabolomics cutting manual preprocessing to 40\% and producing consistent analysis–ready feature matrices
+    \item Trained Linear and Logistic ML models for GDM risk with logistic regression and regularization on metabolite features, improving AUC by 5–10 points vs clinical–only baselines using Azure Data Factory and Snowflake.
+    \item Delivered Snowflake-connected Power BI dashboards with Matplotlib so clinicians could explore key metabolites and exposure–response patterns, reducing ad hoc analysis and review cycles by ~50\%.
+\end{itemize}
+
+{\csname textbf\endcsname{Data Analytics ML Engineer, \href{https://www.neweracap.com/}{\color{linkblue}New Era Cap }}} \hfill 01/25 – 02/26
+\begin{itemize}
+    \item Architected end-to-end demand forecasting, migrating 15+ years of data to Snowflake and deploying Azure time-series models with Power BI/Streamlit, reducing manual planning effort and stockout/overstock risk.
+    \item Boosted model performance by cleaning raw data, transforming hundreds of Snowflake tables with SQL, and running ETL and EDA, cutting ad hoc data wrangling time by 40\%.
+    \item Optimized multi-year demand forecasting by engineering lag/trend features and training CatBoost models with 87\% accuracy and deployed via Azure Data Factory to Blob Storage.
+    \item Delivered explainable analytics with Power BI dashboards and a Streamlit app on Azure, partnering with stakeholders and mentoring teams to shorten planning and reporting cycles by 40\%.
+\end{itemize}
+
+\vspace{2pt}
+{\csname textbf\endcsname{Senior Data Analyst, \href{https://www.mediaocean.com/}{\color{linkblue} Mediaocean }}}\hfill 04/23 – 07/24
+\begin{itemize}
+    \item Led data quality analysis by consolidating API/UI automation and defect data from Python, Karate, Jenkins, and Docker into structured datasets, lifting coverage from 60\% to 95\% and cutting escaped anomalies by 40\%.
+    \item Built Power BI defect dashboards for CTR, Actions, and Impressions and partnered with cross-functional Agile teams to define quality KPIs and embed data validation into CI/CD pipelines.
+\end{itemize}
+
+\vspace{2pt}
+{\csname textbf\endcsname{Data Analys, \href{https://www.mediaocean.com/}{\color{linkblue}Mediaocean}} \hfill 08/21 – 03/23}
+\begin{itemize}
+    \item Developed quality analysis for digital ad campaign workflows by validating campaign setup and analyzing metrics with Python, SQL, and A/B tests across 450+ defects, cutting bug resolution time 55\% and sustaining 97\% build success.
+\end{itemize}
+
+
+% Skills
+\section*{Skills}
+\begin{itemize}
+    \item {\csname textbf\endcsname{Programming   \csname &\endcsname Analytics:}} Python, SQL, R, Pandas, NumPy, Scikit-learn
+    \item {\csname textbf\endcsname{Data Engineering \csname &\endcsname Warehouses:}} ETL/ELT Pipelines, Snowflake, PostgreSQL, MySQL, FastAPI, Data Ingestion
+    \item {\csname textbf\endcsname{Cloud  \csname &\endcsname Orchestration}} Microsoft Azure (Azure Data Factory, Azure Blob Storage), AWS, Docker, Jenkins, CI/CD, Git/GitHub.
+    \item {\csname textbf\endcsname{Data Modeling  \csname &\endcsname Warehousing:}} JSON, Parquet, Schema Design, Dimensional Modeling, Star Schema, Time-Series Modeling, Performance Tuning, basic Data Management practices and Data Governance.
+    \item {\csname textbf\endcsname{Analytics \csname &\endcsname BI Tools :}} Power BI (DAX, Power Query, semantic models), Tableau, Streamlit, Dashboards, Monitoring, Operational Reporting, Matplotlib/Seaborn, Problem Solving, Root Cause Analysis.
+\end{itemize}
+
+% Projects
+\section*{Projects}
+
+
+\vspace{2pt}
+{\csname textbf\endcsname{\href{https://github.com/aishwaryasalvi777/ML_Heart_Attack_Prediction}{\color{linkblue}Cardiovascular Risk Prediction Pipeline }}, (API, XGBOOST, Python)}
+\begin{itemize}
+    \item Engineered a machine learning pipeline using 51+ patient features to predict health risk and built a FastAPI–Streamlit app to collect inputs and surface interpretable risk scores with confidence intervals as dashboards.
+    \end{itemize}
+
+\vspace{2pt}
+{\csname textbf\endcsname{\href{https://github.com/aishwaryasalvi777/Ecommerce_product_recommendation}{\color{linkblue}E-Commerce Recommendation \& Churn Analytics Platform}}, (AWS,ALS,Scikit-learn)}
+\begin{itemize}
+    \item Transformed 2.7M+ e-commerce user–item events with Python, Pandas, NumPy, and Scikit-learn to train an Implicit ALS recommender and built FastAPI/Streamlit services on AWS (EC2, Redshift/RDS) for near real-time top-N recommendations powering downstream revenue analytics.
+    \end{itemize}
+
+\end{document}
